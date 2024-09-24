@@ -1,4 +1,4 @@
-export const sections = [
+const sections = [
     {
         "name": "info",
         "description": "Contains information about what the test script does. The first line is used as graph title by default.",
@@ -60,3 +60,5 @@ export const sections = [
         "hasRoleName": false
     }
 ]
+
+export default sections;

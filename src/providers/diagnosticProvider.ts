@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { sections } from '../keywords';
+import sections from '../symbols/sections';
 
 // Register the diagnostic collection
 export const diagnosticProvider = vscode.languages.createDiagnosticCollection("npf");

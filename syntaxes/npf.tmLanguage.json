@@ -9,7 +9,7 @@
             "include": "#variables"
         },
         {
-            "include": "source.bash"
+            "include": "source.shell"
         }
     ],
     "repository": {
