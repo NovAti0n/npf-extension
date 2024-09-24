@@ -6,6 +6,9 @@
             "include": "#keywords"
         },
         {
+            "include": "#variables"
+        },
+        {
             "include": "source.bash"
         }
     ],
@@ -14,7 +17,15 @@
             "patterns": [
                 {
                     "name": "keyword.control.npf",
-                    "match": "^%\\w+(@\\w+)?"
+                    "match": "^%\\w+"
+                }
+            ]
+        },
+        "variables": {
+            "patterns": [
+                {
+                    "name": "variable.name.npf",
+                    "match": "@\\w+"
                 }
             ]
         }
