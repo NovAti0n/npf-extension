@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import parameters from '../symbols/parameters';
 import sections from '../symbols/sections';
 
 // Register the diagnostic collection
@@ -33,13 +34,42 @@ function validateDocument(document: vscode.TextDocument, diagnosticCollection: v
                 "Unknown section name",
                 vscode.DiagnosticSeverity.Error
             ));
-        } else if (!section.hasRoleName && line.includes('@')) {
-            // Check if section allows role names
-            diagnostics.push(new vscode.Diagnostic(
-                new vscode.Range(i, 0, i, line.length),
-                "Roles are not allowed in this section (allowed in script and import)",
-                vscode.DiagnosticSeverity.Error
-            ));
+        } else {
+            if (!section.hasRoleName && line.includes('@')) {
+                // Check if section allows role names
+                diagnostics.push(new vscode.Diagnostic(
+                    new vscode.Range(i, 0, i, line.length),
+                    "Roles are not allowed in this section (allowed in script and import)",
+                    vscode.DiagnosticSeverity.Error
+                ));
+            }
+
+            // Extract parameters from the line
+            const paramMatches = line.match(/\b(\w+)=([^ ]+)/g);
+            
+            if (paramMatches) {
+                // Validate each parameter against the allowed parameters for this section
+                paramMatches.forEach(param => {
+                    const [key, _] = param.split('=');
+                    const paramInfo = parameters.find(p => p.name === key);
+
+                    if (!paramInfo) {
+                        // If the parameter is not recognized at all
+                        diagnostics.push(new vscode.Diagnostic(
+                            new vscode.Range(i, line.indexOf(param), i, line.indexOf(param) + param.length),
+                            `Unknown parameter '${key}'`,
+                            vscode.DiagnosticSeverity.Warning
+                        ));
+                    } else if (!paramInfo.sections.includes(section.name)) {
+                        // If the parameter is not allowed in the current section
+                        diagnostics.push(new vscode.Diagnostic(
+                            new vscode.Range(i, line.indexOf(param), i, line.indexOf(param) + param.length),
+                            `Parameter '${key}' is not allowed in section '%${section.name}'`,
+                            vscode.DiagnosticSeverity.Error
+                        ));
+                    }
+                });
+            }
         }
     }
 

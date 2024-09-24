@@ -28,7 +28,6 @@ export function buildSymbolCompletionProvider(symbols: SymbolObject[], trigger: 
                 // Add a completion item for each keyword
                 const completionItems = symbols.map(s => {
                     const item = new vscode.CompletionItem(s.name, vscode.CompletionItemKind.Keyword);
-                    item.insertText = new vscode.SnippetString(s.name);
                     item.documentation = new vscode.MarkdownString(s.description);
     
                     return item;

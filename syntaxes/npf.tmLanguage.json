@@ -6,7 +6,10 @@
             "include": "#keywords"
         },
         {
-            "include": "#variables"
+            "include": "#roleNames"
+        },
+        {
+            "include": "#parameters"
         },
         {
             "include": "source.shell"
@@ -17,15 +20,33 @@
             "patterns": [
                 {
                     "name": "keyword.control.npf",
+                    "match": "^%(script|import)"
+                },
+                {
+                    "name": "keyword.other.npf",
                     "match": "^%\\w+"
                 }
             ]
         },
-        "variables": {
+        "roleNames": {
             "patterns": [
                 {
-                    "name": "variable.name.npf",
-                    "match": "@\\w+"
+                    "name": "variable.parameter.role.npf",
+                    "match": "@\\w+",
+                    "begin": "(%script|%import)\\s*",
+                    "end": "(?=\\s|$)"
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.key.npf",
+                    "match": "\\b\\w+(?==)"
+                },
+                {
+                    "name": "string.unquoted.parameter.value.npf",
+                    "match": "(?<=\\=)[^\\s]+"
                 }
             ]
         }
