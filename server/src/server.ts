@@ -13,7 +13,7 @@ import {
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
-connection.onInitialize(_ => {
+/* connection.onInitialize(_ => {
 	const result: InitializeResult = {
 		capabilities: {
 			textDocumentSync: TextDocumentSyncKind.Incremental, // Server will sync document changes to the client
@@ -24,7 +24,7 @@ connection.onInitialize(_ => {
 	};
 
 	return result;
-});
+}); */
 
 connection.onInitialized(() => {
 	console.log("Server initialized");
