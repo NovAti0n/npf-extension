@@ -3,38 +3,67 @@
     "name": "NPF script",
     "patterns": [
         {
-            "include": "#keywords"
+            "include": "#sections"
         },
         {
-            "include": "#roleNames"
-        },
-        {
-            "include": "#parameters"
-        },
-        {
-            "include": "source.shell"
+            "include": "#tags"
         }
     ],
     "repository": {
-        "keywords": {
+        "sections": {
             "patterns": [
                 {
-                    "name": "keyword.control.npf",
-                    "match": "^%(script|import)"
+                    "begin": "^%script(@\\w+)?((?:\\s\\w+(?:=\\w+)?)*)",
+                    "end": "^(?=%\\w+)",
+                    "comment": "Matches script section",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.control.npf"
+                        },
+                        "1": {
+                            "name": "variable.parameter.role.npf"
+                        },
+                        "2": {
+                            "patterns": [
+                                {
+                                    "include": "#parameters",
+                                    "comment": "Matches parameters"
+                                }
+                            ]
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "source.shell",
+                            "comment": "Uses shell syntax highlighting"
+                        }
+                    ]
                 },
                 {
-                    "name": "keyword.other.npf",
+                    "begin": "^%pyexit",
+                    "end": "^(?=%\\w+)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.control.npf"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "source.python"
+                        }
+                    ]
+                },
+                {
+                    "name": "keyword.control.npf",
                     "match": "^%\\w+"
                 }
             ]
         },
-        "roleNames": {
+        "tags": {
             "patterns": [
                 {
-                    "name": "variable.parameter.role.npf",
-                    "match": "@\\w+",
-                    "begin": "(%script|%import)\\s*",
-                    "end": "(?=\\s|$)"
+                    "name": "entity.name.tag.npf",
+                    "match": "^\\w+:"
                 }
             ]
         },
@@ -42,11 +71,18 @@
             "patterns": [
                 {
                     "name": "variable.parameter.key.npf",
-                    "match": "\\b\\w+(?==)"
+                    "comment": "Matches parameter keys",
+                    "match": "\\w+(?=\\s*=)"
                 },
                 {
                     "name": "string.unquoted.parameter.value.npf",
-                    "match": "(?<=\\=)[^\\s]+"
+                    "comment": "Matches parameter values",
+                    "match": "\\w+"
+                },
+                {
+                    "name": "keyword.operator.npf",
+                    "comment": "Matches parameter assignment",
+                    "match": "="
                 }
             ]
         }

@@ -8,17 +8,17 @@ const parameters = [
     },
     {
         "name": "autokill",
-        "description": "Automatically halt the test after completion",
+        "description": "Automatically halts the test after completion",
         "sections": [Section.SCRIPT]
     },
     {
         "name": "waitfor",
-        "description": "Wait for a specific event to occur before executing the script",
+        "description": "Waits for a specific event to occur before executing the script",
         "sections": [Section.SCRIPT]
     },
     {
         "name": "sudo",
-        "description": "Run the script with elevated privileges",
+        "description": "Runs the script with elevated privileges",
         "sections": [Section.SCRIPT]
     }
 ];

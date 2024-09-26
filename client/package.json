@@ -1,0 +1,16 @@
+{
+    "name": "npf-languageclient",
+    "description": "A language client for NPF scripts",
+    "license": "MIT",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.93.0"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.1"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.93.0",
+        "@vscode/test-electron": "^2.4.1"
+    }
+}
